@@ -1,0 +1,21 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build-mmd && npm run build-pdf",
+    "build-mmd": "npm run build-monitoring && npm run build-operator-wallet-manager && npm run build-operator-wallet-executor && npm run build-overview",
+    "build-monitoring": "./node_modules/.bin/mmdc -c config.json -C mermaid.css -i monitoring.mmd -o ./media/monitoring.png",
+    "build-operator-wallet-executor": "./node_modules/.bin/mmdc -c config.json -C mermaid.css -i operator_wallet_executor.mmd -o ./media/operator_wallet_executor.png",
+    "build-operator-wallet-manager": "./node_modules/.bin/mmdc -c config.json -C mermaid.css -i operator_wallet_manager.mmd -o ./media/operator_wallet_manager.png",
+    "build-overview": "./node_modules/.bin/mmdc -c config.json -C mermaid.css -i overview.mmd -o ./media/overview.png",
+    "build-pdf": "./node_modules/.bin/markdown-pdf technical_specs.md -o technical_specs.pdf"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "markdown-pdf": "^9.0.0",
+    "mermaid.cli": "^0.5.1"
+  }
+}

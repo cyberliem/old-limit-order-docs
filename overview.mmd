@@ -1,0 +1,7 @@
+graph TD
+    OrderManagement -->|open orders, user addresses| Monitoring
+    Monitoring -->|user balances, allowances| OrderManagement
+    Monitoring -->|eligible orders/pending orders| ScoringAlgorithm
+    ScoringAlgorithm -->|orders to execute| Operator
+    Operator -->|pending orders| Monitoring
+    Operator -->|order status| OrderManagement

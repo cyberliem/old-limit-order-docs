@@ -1,0 +1,29 @@
+graph TD
+    ScoringAlgorithm -->|orders| OperatorAPI
+    ScoringAlgorithm -->|expiration block| OperatorAPI
+    OperatorAPI -->|execute orders| OperatorJobProducer
+    OperatorAPI -->|rejected orders| OrderManagement
+    OperatorJobProducer -->|order| MQCluster::TradeQueue
+
+    MQCluster::TradeQueue -->|order| Executor1
+    Executor1 -->|tx| Ethereum
+    Executor1 -->|tx hash| MQCluster::pendingQueue
+    Executor1 -->|order status| OrderManagement
+    OpWalletETHDResourceManager -.-> Executor1
+
+    MQCluster::TradeQueue -->|order| Executor2
+    Executor2 -->|tx| Ethereum
+    Executor2 -->|tx hash| MQCluster::pendingQueue
+    Executor2 -->|order status| OrderManagement
+    OpWalletETHResourceManager -.-> Executor2
+
+    MQCluster::TradeQueue -->|order| ExecutorN
+    ExecutorN -->|tx| Ethereum
+    ExecutorN -->|tx hash| MQCluster::pendingQueue
+    ExecutorN -->|order status| OrderManagement
+    OpWalletETHDResourceManager -.-> ExecutorN
+
+    Ethereum -->|tx status| OperatorJobMonitoring
+    MQCluster::pendingQueue -->|tx hash| OperatorJobMonitoring
+    OperatorJobMonitoring -->|pending orders| OperatorAPI
+    OperatorJobMonitoring -->|order status| OrderManagement

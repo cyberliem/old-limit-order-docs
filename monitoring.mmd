@@ -1,0 +1,13 @@
+graph TD
+    Operator -->|pending orders| MonitoringAPI
+    OrderManagement -->|open orders| MonitoringAPI
+    MonitoringAPI -->|open orders|MonitoringJobProducer
+    MonitoringAPI -->|eligible orders/pending orders| ScoringAlgorithm
+    MonitoringJobProducer -->|open orders| MQCluster::openQueue
+    MQCluster::openQueue -->|open orders| Worker1
+    Worker1 -->|eligible orders| MQCluster::EligibleQueue
+    MQCluster::openQueue -->|open orders| Worker2
+    Worker2 -->|eligible orders| MQCluster::EligibleQueue
+    MQCluster::openQueue -->|open orders| WorkerN
+    WorkerN -->|eligible orders| MQCluster::EligibleQueue
+    MQCluster::EligibleQueue -->|eligible orders| MonitoringAPI

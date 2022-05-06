@@ -1,0 +1,16 @@
+graph TD
+    subgraph OpWalletGenerator
+        OpWalletGenerator --> OpWallet1
+	    OpWalletGenerator --> OpWallet2
+        OpWalletGenerator --> OpWalletN
+    end
+    subgraph OpWalletETHDepositor
+	   OpWalletETHDepositor -->|ETH| OpWallet1
+       OpWalletETHDepositor -->|ETH| OpWallet2
+       OpWalletETHDepositor -->|ETH| OpWalletN
+    end
+    subgraph OpWalletETHResourceManager
+        OpWalletETHDResourceManager -->|ETH| OpWallet1
+        OpWalletETHDResourceManager -->|ETH| OpWallet2
+        OpWalletETHDResourceManager -->|ETH| OpWalletN
+    end
